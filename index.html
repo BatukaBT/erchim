@@ -1,54 +1,1191 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Erchim</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
-    }
-    .wrap { max-width: 720px; }
-    h1 {
-      font-size: clamp(48px, 10vw, 96px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #ff6b00, #ffb800);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
-    }
-    p {
-      font-size: clamp(16px, 2.4vw, 20px);
-      color: #aaa;
-      line-height: 1.6;
-    }
-    .badge {
-      display: inline-block;
-      margin-top: 32px;
-      padding: 8px 16px;
-      border: 1px solid #333;
-      border-radius: 999px;
-      font-size: 13px;
-      color: #888;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЭРЧҮҮДИЙН БЭЛМЭЛ — Эр хүн танд хэрэгтэй бүхнийг нэг саванд</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Noto+Sans+Mongolian&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --dark: #0A0A0A;
+    --dark2: #111111;
+    --dark3: #1A1A1A;
+    --white: #FFFFFF;
+    --gray: #888888;
+    --light: #F0F0F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAVBAR */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--dark);
+    font-weight: 900;
+  }
+
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--white);
+    letter-spacing: 3px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--dark) !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    transition: all 0.3s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-light) !important;
+    color: var(--dark) !important;
+    transform: translateY(-1px);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 12vw, 130px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto 50px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201,168,76,0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .stat {
+    padding: 50px 40px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+  }
+
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: var(--dark3); }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .section-desc {
+    color: var(--gray);
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  /* PRODUCTS */
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .product-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+
+  .product-card:hover::before { transform: scaleX(1); }
+  .product-card:hover {
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .product-badge {
+    display: inline-block;
+    background: var(--gold-dim);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .product-sub {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .product-desc {
+    color: var(--gray);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .product-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    color: var(--light);
+  }
+
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+  }
+
+  .product-price span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 400;
+  }
+
+  /* INGREDIENTS */
+  .ingredients-section {
+    background: var(--dark2);
+    padding: 100px 0;
+  }
+
+  .ingredients-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .ingredient {
+    background: var(--dark3);
+    padding: 36px 32px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.3s;
+  }
+
+  .ingredient:hover { background: #1f1f1f; }
+
+  .ing-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .ing-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--white);
+  }
+
+  .ing-dose {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .ing-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* BENEFITS */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .benefit {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 36px;
+    background: var(--dark3);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+
+  .benefit:hover {
+    border-color: rgba(201,168,76,0.2);
+    background: #1a1a1a;
+  }
+
+  .benefit-icon {
+    width: 48px; height: 48px;
+    background: var(--gold-dim);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .benefit-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .benefit-desc {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* REVIEWS */
+  .reviews-section {
+    background: var(--dark2);
+    padding: 100px 0;
+  }
+
+  .reviews-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .review {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 36px;
+    transition: all 0.3s;
+  }
+
+  .review:hover {
+    border-color: rgba(201,168,76,0.2);
+    transform: translateY(-4px);
+  }
+
+  .stars {
+    color: var(--gold);
+    font-size: 18px;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  .review-text {
+    font-size: 14px;
+    color: var(--light);
+    line-height: 1.8;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reviewer-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .reviewer-name {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .reviewer-info {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  /* TRUST */
+  .trust-section {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .trust-item {
+    text-align: center;
+    padding: 40px 24px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    transition: all 0.3s;
+  }
+
+  .trust-item:hover {
+    border-color: rgba(201,168,76,0.3);
+    background: var(--dark3);
+  }
+
+  .trust-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .trust-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--gold);
+  }
+
+  .trust-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: linear-gradient(135deg, #1a1500 0%, #0a0a0a 50%, #1a1500 100%);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 100px 60px;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px, 8vw, 100px);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .cta-desc {
+    color: var(--gray);
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+
+  .contact-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .contact-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 28px 40px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.3s;
+    min-width: 200px;
+  }
+
+  .contact-card:hover {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    transform: translateY(-4px);
+  }
+
+  .contact-icon { font-size: 28px; margin-bottom: 10px; }
+  .contact-label { font-size: 11px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .contact-value { font-size: 15px; font-weight: 700; color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--gray);
+    text-align: center;
+  }
+
+  .footer-cert {
+    display: flex;
+    gap: 16px;
+  }
+
+  .cert-badge {
+    background: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0 60px;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 60px 24px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .ingredients-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-section { padding: 60px 24px; }
+    footer { padding: 40px 24px; flex-direction: column; text-align: center; }
+    .ingredients-inner, .reviews-inner { padding: 0 24px; }
+    .trust-section { padding: 60px 24px; }
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Erchim</h1>
-    <p>Удахгүй танилцуулагдана.</p>
-    <div class="badge">Coming soon</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">Э</div>
+    <span class="logo-text" style="font-size:16px;letter-spacing:1px;">ЭРЧҮҮДИЙН БЭЛМЭЛ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Бүтээгдэхүүн</a></li>
+    <li><a href="#ingredients">Найрлага</a></li>
+    <li><a href="#benefits">Үр дүн</a></li>
+    <li><a href="#reviews">Сэтгэгдэл</a></li>
+    <li><a href="#contact" class="nav-cta">Захиалах →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🌿 Байгалийн · Органик · Химийн найрлагагүй</div>
+  <h1 class="hero-title" style="font-size:clamp(36px,7vw,80px);">
+    Эр хүн танд<br>
+    <span class="gold">хэрэгтэй бүхнийг</span><br>
+    нэг саванд.
+  </h1>
+  <p class="hero-sub">
+    Хятад улс уламжлалт анагаах ухааны салбарт дэлхийд тэргүүлдэг —<br>
+    олон мянган жилийн туршлагыг нэг саванд нэгтгэв.
+  </p>
+  <div class="hero-btns">
+    <a href="#products" class="btn-primary">Захиалах →</a>
+    <a href="#ingredients" class="btn-secondary">Найрлага үзэх</a>
   </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Идэвхт органик орц</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">98%</div>
+    <div class="stat-label">Хэрэглэгчийн сэтгал ханамж</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">7</div>
+    <div class="stat-label">Хоногт эрч хүч мэдрэгдэнэ</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">GMP</div>
+    <div class="stat-label">Олон улсын баталгаа</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="section-tag">ЭРЧҮҮДИЙН БЭЛМЭЛ</div>
+  <h2 class="section-title">"ЭР ХҮН ТАНД<br><span style="color:var(--gold);">ХЭРЭГТЭЙ БҮХНИЙГ</span><br>НЭГ САВАНД НЭГТГЭВ"</h2>
+  <p class="section-desc">3 идэвхт органик байгалийн орц. Химийн найрлагагүй. Хятад улс уламжлалт анагаах ухааны салбарт дэлхийд тэргүүлдэг — тэр мянган жилийн туршлагыг нэг саванд.</p>
+
+  <div class="products-grid fade-in">
+    <!-- 45 ХОНОГ -->
+    <div class="product-card">
+      <div class="product-badge">🌿 1 Хайрцаг · 45 Хоногийн Хэрэглээ</div>
+      <div class="product-name">ЭРЧҮҮДИЙН<br>БЭЛМЭЛ</div>
+      <div class="product-sub">100 капсул · 45 хоногийн хэрэглээ</div>
+      <p class="product-desc">
+        Бугын цус, Мака, Хүн оройн — байгалийн хамгийн хүчирхэг 3 орцын нэгдэл. Химийн найрлагагүй, 100% органик байгалийн гаралтай.
+      </p>
+      <div class="product-tags">
+        <span class="tag">🦌 Бугын цус</span>
+        <span class="tag">🌿 Мака</span>
+        <span class="tag">🌱 Хүн оройн</span>
+        <span class="tag">Органик</span>
+      </div>
+      <div class="product-price">₮98,000 <span>/ 100 капсул · 45 хоног</span></div>
+      <div style="margin-top:16px;font-size:12px;color:rgba(201,168,76,0.7);">✅ 14 хоногт буцаалттай</div>
+    </div>
+
+    <!-- 90 ХОНОГ КУРС -->
+    <div class="product-card" style="border-color:rgba(201,168,76,0.5);background:linear-gradient(135deg,#1a1a1a 0%,#1f1a00 100%);">
+      <div style="position:absolute;top:20px;right:20px;background:var(--gold);color:var(--dark);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;">40% ХЯМДРАЛ</div>
+      <div class="product-badge">⭐ 90 Хоног Курс · Хамгийн Их Зарагддаг</div>
+      <div class="product-name">ЭРЧҮҮДИЙН<br>БЭЛМЭЛ</div>
+      <div class="product-sub">200 капсул · 90 хоног курс</div>
+      <p class="product-desc">
+        90 хоногийн курсыг дуусгасны дараа 2 жил дахиж хэрэглэх шаардлагагүй.
+      </p>
+      <div class="product-tags">
+        <span class="tag">🦌 Бугын цус</span>
+        <span class="tag">🌿 Мака</span>
+        <span class="tag">🌱 Хүн оройн</span>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div style="font-size:13px;color:var(--gray);text-decoration:line-through;margin-bottom:4px;">₮196,000</div>
+        <div class="product-price">₮120,000 <span>· ₮76,000 хэмнэнэ</span></div>
+      </div>
+      <!-- Countdown -->
+      <div style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:14px;text-align:center;">
+        <div style="font-size:10px;color:var(--gray);margin-bottom:4px;">Хямдрал дуусахад</div>
+        <div id="countdown" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);letter-spacing:4px;">48:00:00</div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:rgba(201,168,76,0.7);">✅ 14 хоногт буцаалттай</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;text-align:center;" class="fade-in">
+    <a href="#contact" class="btn-primary" style="font-size:17px;padding:18px 48px;">ОДОО ЗАХИАЛАХ →</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INGREDIENTS -->
+<section class="ingredients-section" id="ingredients">
+  <div class="ingredients-inner">
+    <div class="section-tag">Найрлага</div>
+    <h2 class="section-title">МЯНГАН ЖИЛИЙН<br>ТУРШЛАГА</h2>
+    <p class="section-desc">Хятад улс уламжлалт анагаах ухааны салбарт дэлхийд тэргүүлдэг. Эдгээр орцыг хэдэн мянган жилийн өмнөөс эрчүүдийн асуудалд хэрэглэж ирсэн — химийн найрлагагүй, 100% байгалийн.</p>
+
+    <div class="ingredients-grid fade-in" style="grid-template-columns: repeat(3,1fr);">
+      <div class="ingredient">
+        <div class="ing-num">01</div>
+        <div class="ing-name">🦌 Бугын цус</div>
+        <div class="ing-dose">Deer Velvet Extract</div>
+        <div class="ing-desc">Либидо буюу бэлгийн дуршил нэмэгдүүлнэ. Хурдан тавих, хөвчрөлт сулрах зовиур бүрэн арилгана. Хэдэн мянган жил хэрэглэж ирсэн байгалийн эх орц.</div>
+      </div>
+      <div class="ingredient">
+        <div class="ing-num">02</div>
+        <div class="ing-name">🌿 Мака</div>
+        <div class="ing-dose">Maca Extract 10:1 · Перу</div>
+        <div class="ing-desc">Бэлгийн дуршил, үйл ажиллагаа сайжруулна. Ядрал, сулдал бууруулна. Гормоны тэнцвэрийг дэмжинэ.</div>
+      </div>
+      <div class="ingredient">
+        <div class="ing-num">03</div>
+        <div class="ing-name">🌱 Орхоодой</div>
+        <div class="ing-dose">Ginseng · Хятадын #1 орц</div>
+        <div class="ing-desc">Шээс тасалдах, ойрхон шээх, түрүү булчирхайн үрэвслийг бууруулна. Цусны эргэлт сайжруулна. Хятадын уламжлалт анагаах ухааны хамгийн үнэ цэнэтэй орц — мянган жилийн нотолгоотой.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BENEFITS -->
+<section class="section" id="benefits">
+  <div class="section-tag">Бодит үр дүн</div>
+  <h2 class="section-title">45–90 ХОНОГТ<br>ЮУ МЭДРЭХ ВЭ?</h2>
+
+  <div class="benefits-grid fade-in">
+    <div class="benefit">
+      <div class="benefit-icon">🔥</div>
+      <div>
+        <div class="benefit-title">Либидо нэмэгдэнэ <span style="font-size:12px;color:var(--gold);font-weight:400;">(бэлгийн дуршил сэргэнэ)</span></div>
+        <div class="benefit-desc">Бугын цус + Мака хослол бэлгийн дуршил буюу либидог мэдэгдэхүйц сэргээнэ. Либидо гэдэг нь таны бэлгийн хүсэл, идэвхи — 1–2 долоо хоногт аль хэдийн мэдрэгдэж эхэлнэ.</div>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">⚡</div>
+      <div>
+        <div class="benefit-title">Хурдан тавих, хөвчрөлт сулрах арилна</div>
+        <div class="benefit-desc">Бугын цусны IGF-1 үйлчлэлээр хурдан тавих, хөвч суларч ядрах зовиур буурна. Бэлгийн үйл ажиллагаа тогтвортой, урт болно. 7–14 хоногт мэдрэгдэнэ.</div>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🚿</div>
+      <div>
+        <div class="benefit-title">Шээс тасалдахгүй болно</div>
+        <div class="benefit-desc">Хүн оройн шээсний урсгал сайжруулна. Шөнийн босолт багасна, тасалдал арилна. Шээсний гарц хэвийн болно. 2 долоо хоногт мэдэгдэхүйц сайжирна.</div>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">💪</div>
+      <div>
+        <div class="benefit-title">Тестостерон өндөр түвшин</div>
+        <div class="benefit-desc">Бугын цус + Хүн оройн + Мака гурвын синерги тестостероны байгалийн үйлдвэрлэлийг дэмжинэ. 90 хоногийн курст хамгийн бүрэн, тогтвортой үр дүн гарна.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div style="margin-top:60px; background:var(--dark3); border-radius:20px; padding:40px; border:1px solid rgba(255,255,255,0.08);" class="fade-in">
+    <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:32px;">⏱ Үр дүн гарах хуваарь</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+      <div style="text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);">7</div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:8px;">ХОНОГ</div>
+        <div style="font-size:13px;font-weight:600;">Эрч хүч мэдрэгдэнэ</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);">14</div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:8px;">ХОНОГ</div>
+        <div style="font-size:13px;font-weight:600;">Шээсний гарц сайжирна</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);">14</div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:8px;">ХОНОГ</div>
+        <div style="font-size:13px;font-weight:600;">Бэлгийн үйл ажиллагаа сайжирна</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);">30+</div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:8px;">ХОНОГ</div>
+        <div style="font-size:13px;font-weight:600;">Тестостерон өндөр түвшин</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:13px;color:var(--gold);">✅ 14 хоногт үр дүн мэдрэгдээгүй бол бүтэн буцаалт</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-inner">
+    <div class="section-tag">Хэрэглэгчийн сэтгэгдэл</div>
+    <h2 class="section-title">БИДНИЙ<br>ТУРШЛАГА</h2>
+
+    <div class="reviews-grid fade-in" style="grid-template-columns:repeat(3,1fr);">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"2 долоо хоногт шээс мэдэгдэхүйц сайжирсан. Шөнө 3–4 удаа босч шээхээ больсон. Шээсний гарц сайжирсан. Маш их баярлалаа."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">Б</div>
+          <div>
+            <div class="reviewer-name">Батбаяр Д.</div>
+            <div class="reviewer-info">54 нас · Улаанбаатар · 45 хоногийн хэрэглээ</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Бэлгийн үйл ажиллагаа мэдэгдэхүйц сайжирсан. Хурдан тавих зовиур бүрэн арилсан. Эхнэртэйгээ хуучин шигээ харилцаатай болсон шүү. 90 хоногийн курс авсан — дахиж хэрэглэх хүсэлтэй байгаа."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">Т</div>
+          <div>
+            <div class="reviewer-name">Төмөрбаатар Г.</div>
+            <div class="reviewer-info">49 нас · Дархан · 90 хоног курс</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Хүн оройн орцтой учраас найрлагад итгэлтэй байлаа. 3 долоо хоногт бэлгийн үйл ажиллагаа, хөвчрөлт суларч ядрах зовиур хоёулаа сайжирсан. Хятадын уламжлалт анагаах ухаан бодсоноос үнэхээр сайн байлаа."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">Н</div>
+          <div>
+            <div class="reviewer-name">Нямдорж С.</div>
+            <div class="reviewer-info">52 нас · Улаанбаатар · 90 хоног курс</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Найз маань санал болгосноор авсан. Бугын цус, мака гэхээр итгэлтэй санагдсан. 10 хоногт л үр дүн мэдрэгдэж, 3 долоо хоногт шээс, бэлгийн дуршил хоёулаа сайжирсан. Курсийн хямдрал авснаар цаг хугацаа мөнгөө хэмнэсэн — чанартай бүтээгдэхүүн."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">М</div>
+          <div>
+            <div class="reviewer-name">Мөнхбаяр Д.</div>
+            <div class="reviewer-info">45 нас · Улаанбаатар · 90 хоног курс</div>
+          </div>
+        </div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Химийн найрлагагүй, байгалийн гэдэгт итгэж авлаа. Хурдан тавих зовиур аль 2 долоо хоногт арилсан. Шээс тасалдах, бэлгийн сулрал хоёулаа сайжирсан. Сав нь нууцлалтай ирдэг нь таалагдлаа — баярлалаа."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">О</div>
+          <div>
+            <div class="reviewer-name">Оюунбаяр Т.</div>
+            <div class="reviewer-info">50 нас · Улаанбаатар · 45 хоногийн хэрэглээ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TRUST -->
+<section class="trust-section">
+  <div class="section-tag" style="text-align:center;">Яагаад биднийг сонгох вэ?</div>
+  <h2 class="section-title" style="text-align:center;">БИД САЛБАРТАА<br><span style="color:var(--gold);">ТЭРГҮҮЛЭГЧ</span></h2>
+
+  <div class="trust-grid fade-in">
+    <div class="trust-item">
+      <div class="trust-icon">🏆</div>
+      <div class="trust-title">Салбартаа Тэргүүлэгч</div>
+      <div class="trust-desc">Хятад улс уламжлалт анагаах ухааны салбарт дэлхийд тэргүүлдэг — бид тэр орцуудыг танд хүргэнэ</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🌿</div>
+      <div class="trust-title">100% Органик</div>
+      <div class="trust-desc">Химийн нэмэлтгүй, байгалийн гаралтай орцууд. Таны биед зөвхөн байгалийн хүч</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">✅</div>
+      <div class="trust-title">14 Хоногт Буцаалт</div>
+      <div class="trust-desc">Үр дүн мэдрэгдээгүй бол 14 хоногийн дотор бүтэн мөнгийг буцаана. Эрсдэлгүй туршина уу</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">📦</div>
+      <div class="trust-title">Нэр Нууцлалтай</div>
+      <div class="trust-desc">Хаалттай савлагаатай хүргэлт. Таны нууцыг бүрэн хамгаална</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-section" id="contact">
+  <div class="section-tag" style="text-align:center;">Захиалга</div>
+  <h2 class="cta-title">ЯГ ОДОО<br><span style="color:var(--gold);">ЗАХИАЛААРАЙ.</span></h2>
+  <p class="cta-desc">Хаалттай савлагаатай, нууцлалтай хүргэнэ. 14 хоногт буцаалттай.</p>
+
+  <!-- Холбоо барих товчнууд -->
+  <div style="margin-top:40px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a href="tel:+97686280393" class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-label">Утасдах</div>
+      <div class="contact-value">8628-0393</div>
+    </a>
+    <!-- Messenger button with logo -->
+    <a href="https://m.me/61567362084093" target="_blank" style="background:var(--dark3);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 32px;text-align:center;text-decoration:none;color:var(--white);transition:all 0.3s;min-width:180px;display:block;">
+      <div style="margin-bottom:10px;">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="msg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#00B2FF"/><stop offset="1" stop-color="#006AFF"/></linearGradient></defs>
+          <circle cx="16" cy="16" r="16" fill="url(#msg)"/>
+          <path d="M16 6C10.477 6 6 10.254 6 15.5c0 2.913 1.356 5.516 3.498 7.258V26l3.26-1.793A10.7 10.7 0 0016 24.5c5.523 0 10-4.254 10-9.5S21.523 6 16 6zm1.09 12.773l-2.545-2.715-4.972 2.715 5.47-5.808 2.606 2.715 4.91-2.715-5.47 5.808z" fill="white"/>
+        </svg>
+      </div>
+      <div style="font-size:11px;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Messenger</div>
+      <div style="font-size:14px;font-weight:700;color:#00B2FF;">Захиалах</div>
+    </a>
+  </div>
+
+  <!-- QR хос -->
+  <div style="margin-top:50px;display:flex;gap:32px;justify-content:center;flex-wrap:wrap;align-items:flex-start;">
+    <!-- Khanbank QR -->
+    <div style="background:var(--dark3);border:1px solid rgba(201,168,76,0.3);border-radius:18px;padding:28px 36px;text-align:center;">
+      <div style="font-size:11px;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">💳 Хаан Банк</div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:14px;">5400031448</div>
+      <div style="width:150px;height:150px;background:white;border-radius:10px;margin:0 auto 10px;padding:7px;display:flex;align-items:center;justify-content:center;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=136x136&data=5400031448&margin=0&format=png" width="136" height="136" alt="Хаан Банк QR" style="border-radius:3px;">
+      </div>
+      <div style="font-size:11px;color:var(--gray);">Камераар уншуулна уу</div>
+    </div>
+
+    <!-- Facebook Page QR -->
+    <a href="https://www.facebook.com/profile.php?id=61567362084093" target="_blank" style="text-decoration:none;">
+      <div style="background:var(--dark3);border:1px solid rgba(24,119,242,0.4);border-radius:18px;padding:28px 36px;text-align:center;cursor:pointer;transition:all 0.3s;">
+        <!-- Facebook logo -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span style="font-size:13px;color:#1877F2;font-weight:700;">Facebook</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:14px;">Хуудас руу орох</div>
+        <div style="width:150px;height:150px;background:white;border-radius:10px;margin:0 auto 10px;padding:7px;display:flex;align-items:center;justify-content:center;">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=136x136&data=https://www.facebook.com/profile.php?id%3D61567362084093&margin=0&format=png" width="136" height="136" alt="Facebook Page QR" style="border-radius:3px;">
+        </div>
+        <div style="font-size:11px;color:var(--gray);">Камераар уншуулна уу</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ХЭРЭГЛЭХ ЗААВАР -->
+  <div style="margin-top:60px;max-width:600px;margin-left:auto;margin-right:auto;margin-top:60px;">
+    <div style="background:var(--dark3);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">📋 ХЭРЭГЛЭХ ЗААВАР</div>
+      <div style="font-size:14px;color:var(--light);line-height:1.8;">Насанд хүрэгчид өглөө, оройд <strong style="color:var(--gold);">1 ширхэгийг</strong> усаар даруулж уух хэлбэрээр хэрэглэнэ. Нийт өдөрт <strong style="color:var(--gold);">2 ширхэг.</strong></div>
+    </div>
+    <div style="background:var(--dark3);border:1px solid rgba(255,100,100,0.15);border-radius:16px;padding:32px;margin-bottom:16px;">
+      <div style="font-size:12px;color:#e07070;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">⚠️ АНХААРУУЛГА</div>
+      <div style="font-size:13px;color:var(--gray);line-height:1.8;">Жирэмсэн болон хөхүүл эмэгтэйчүүд, 18-аас доош насны хүүхэд, өвчтэй эсвэл эм хэрэглэж байгаа хүмүүс хэрэглэхийн өмнө эмчтэй зөвлөнө үү.</div>
+    </div>
+    <div style="background:var(--dark3);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;">
+      <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">🌡️ ХАДГАЛАХ ЗААВАР</div>
+      <div style="font-size:13px;color:var(--gray);line-height:1.8;">Хуурай, сэрүүн газар хадгална.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ЭРЧҮҮДИЙН БЭЛМЭЛ</div>
+  <div class="footer-text">
+    © 2026 · Улаанбаатар, Монгол · 8628-0393<br>
+    <span style="font-size:11px;">Эр хүн танд хэрэгтэй бүхнийг нэг саванд</span>
+  </div>
+  <div class="footer-cert">
+    <span class="cert-badge">GMP</span>
+    <span class="cert-badge">ОРГАНИК</span>
+    <span class="cert-badge">БАЙГАЛИЙН</span>
+  </div>
+</footer>
+
+<script>
+  // Countdown timer - 48 hours from page load
+  (function() {
+    var key = 'erchim_countdown_end';
+    var stored = localStorage.getItem(key);
+    var endTime;
+    if (stored) {
+      endTime = parseInt(stored);
+    } else {
+      endTime = Date.now() + 48 * 60 * 60 * 1000;
+      try { localStorage.setItem(key, endTime); } catch(e) {}
+    }
+    function updateCountdown() {
+      var el = document.getElementById('countdown');
+      if (!el) return;
+      var remaining = endTime - Date.now();
+      if (remaining <= 0) {
+        endTime = Date.now() + 48 * 60 * 60 * 1000;
+        try { localStorage.setItem(key, endTime); } catch(e) {}
+        remaining = 48 * 60 * 60 * 1000;
+      }
+      var h = Math.floor(remaining / 3600000);
+      var m = Math.floor((remaining % 3600000) / 60000);
+      var s = Math.floor((remaining % 60000) / 1000);
+      el.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth nav highlight
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(10,10,10,0.98)';
+    } else {
+      nav.style.background = 'rgba(10,10,10,0.95)';
+    }
+  });
+</script>
 </body>
 </html>
